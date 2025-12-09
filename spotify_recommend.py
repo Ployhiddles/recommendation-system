@@ -206,7 +206,7 @@ def load_lottieurl(url: str):
         return None
     return r.json() 
 
-@st.cache_data(allow_output_mutation=True)
+@st.cache_data
 def load_file():
     df = pd.read_csv("recommendation_df_final.csv")
     df['genres'] = df.genres.apply(lambda x: [i[1:-1] for i in str(x)[1:-1].split(", ")])
@@ -366,4 +366,5 @@ div.stButton > button:first-child {
             with col1:
                 st.write("No songs left to recommend")
 page()
+
 
