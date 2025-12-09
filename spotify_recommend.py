@@ -1,4 +1,4 @@
-mport pandas as pd
+import pandas as pd
 import numpy as np
 import streamlit as st
 from sklearn.preprocessing import StandardScaler
@@ -366,3 +366,4 @@ div.stButton > button:first-child {
             with col1:
                 st.write("No songs left to recommend")
 page()
+
