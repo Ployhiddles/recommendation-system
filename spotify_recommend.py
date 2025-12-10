@@ -229,6 +229,104 @@ def main():
                             with col1:
                                 components.html(track_html, height=400)
                                 with st.expander("Data Visualisation 🖼️"):
+                                    df_polar = pd.DataFrame(
+                                        dict(
+                                            r=audio[:5],
+                                            characteristic=song_characteristics[:5],
+                                        )
+                                    )
+                                    st.caption(
+                                        "The Polar Chart and table below show each characteristic level for this song."
+                                    )
+                                    st.write("Characteristic Levels:", df_polar)
+                                    polar_chart = px.line_polar(
+                                        df_polar,
+                                        r="r",
+                                        theta="characteristic",
+                                        template="seaborn",
+                                        line_close=True,
+                                        color_discrete_sequence=px.colors.sequential.Blackbody,
+                                    )
+                                    polar_chart.update_layout(height=260, width=380)
+                                    st.plotly_chart(polar_chart)
+                else:
+                    with col1:
+                        st.write("No songs left to recommend.")
+
+    # ========== TAB 2: URL → POLAR CHART ==========
+    with tab2:
+        st.subheader("Generate Polar Chart from Spotify URL / URI / ID")
+
+        track_input = st.text_input(
+            "Paste a Spotify track URL / URI / ID:",
+            help="Example: https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC",
+        )
+
+        if track_input:
+            track_id = extract_track_id(track_input)
+            st.write("Detected track ID:", track_id)
+
+            # Try to match in your CSV: uri may be full or just ID
+            uri_series = recommendation_df["uri"].astype(str)
+
+            mask_exact = uri_series == track_id
+            mask_contains = uri_series.str.contains(track_id, na=False)
+
+            if mask_exact.any():
+                row = recommendation_df[mask_exact].iloc[0]
+            elif mask_contains.any():
+                row = recommendation_df[mask_contains].iloc[0]
+            else:
+                st.error(
+                    "Track not found in the dataset. "
+                    "Check that this track exists in recommendation_df_final.csv."
+                )
+                return
+
+            audio_vals = row[song_characteristics].values
+
+            st.write("Track from CSV:")
+            st.write(row[["uri", "genres", "release_year", "popularity"]])
+
+            st.subheader("Audio Feature Values from CSV")
+            df_vals = pd.DataFrame(
+                {
+                    "characteristic": song_characteristics,
+                    "value": audio_vals,
+                }
+            )
+            st.write(df_vals)
+
+            polar_df = pd.DataFrame(
+                {
+                    "characteristic": song_characteristics,
+                    "r": audio_vals,
+                }
+            )
+
+            fig = px.line_polar(
+                polar_df,
+                r="r",
+                theta="characteristic",
+                line_close=True,
+            )
+            fig.update_layout(height=400, width=500)
+            st.subheader("Polar Chart")
+            st.plotly_chart(fig)
+
+            # Optional Spotify embed
+            st.subheader("Spotify Preview")
+            embed_url = f"https://open.spotify.com/embed/track/{track_id}"
+            st.markdown(
+                f'<iframe src="{embed_url}" width="300" height="380" frameborder="0" '
+                'allowtransparency="true" allow="encrypted-media"></iframe>',
+                unsafe_allow_html=True,
+            )
+
+
+if __name__ == "__main__":
+    main()
+
 
 
 
