@@ -68,16 +68,16 @@ def main():
     st.set_page_config(page_title="Spotify Recommender", page_icon="🎧", layout="wide")
     st.title("🎧 Spotify Audio Feature Recommendation System")
 
-    
+    # ✅ LOAD THE DATA FIRST (this was missing and caused NameError)
+    df = pd.read_csv("recommendation_df_final.csv")
 
-        # Drop rows with missing feature values
+    # Drop rows with missing feature values
     existing_cols = [col for col in FEATURE_COLS if col in df.columns]
     df = df.dropna(subset=existing_cols)
 
     if df.empty:
         st.error("All rows are missing required features after cleaning.")
         return
-
 
     # Show a sample of the data
     with st.expander("Preview of your data"):
@@ -157,6 +157,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# ------------- SECOND APP -------------
 import streamlit as st
 from PIL import Image
 import pandas as pd
@@ -167,6 +170,7 @@ from streamlit_lottie import st_lottie
 import requests
 
 st.set_page_config(page_title="Spotify Recommendation system",page_icon="🎧", layout="wide")
+
 def load_lottieurl(url: str):
     r = requests.get(url)
     if r.status_code != 200:
@@ -185,25 +189,26 @@ genre_in_system = ['Jazz', 'Electronic','Dance Pop', 'Hip Hop',  'K-pop', 'Latin
 song_characteristics = ['acousticness', 'danceability', 'energy', 'instrumentalness', 'valence', 'tempo']
 
 recommendation_df = load_file()
+
 def knn_uri(genre, start_year, end_year, test_feat):
     genre = genre.lower()
     genre_df = recommendation_df[(recommendation_df["genres"]==genre) & (recommendation_df["release_year"]>=start_year) & (recommendation_df["release_year"]<=end_year)]
-    genre_df =genre_df.sort_values(by='popularity', ascending=False)[:500]
+    genre_df = genre_df.sort_values(by='popularity', ascending=False)[:500]
 
     knn_neigh = NearestNeighbors()
     knn_neigh.fit(genre_df[song_characteristics].to_numpy())
 
     n_neighbors = knn_neigh.kneighbors([test_feat], n_neighbors=len(genre_df), return_distance=False)[0]
 
-    uris =genre_df.iloc[n_neighbors]["uri"].tolist()
-    audios =genre_df.iloc[n_neighbors][song_characteristics].to_numpy()
+    uris = genre_df.iloc[n_neighbors]["uri"].tolist()
+    audios = genre_df.iloc[n_neighbors][song_characteristics].to_numpy()
     return uris, audios
+
 
 def page():
     st.title("Spotify Song Recommendation System by using Nearest Neighbor Classification")
     st.write("This project is a part from Business Project. This spotify song recommendation by genre and the characteristics of audio,which containing  acousticness, danceability, energy, instrumentalness, valence, tempo. Moreover, this project also apply knn algorithm to generate the hightest k value to find the song with fimilar characteristics")
 
-#stlottie file
     lottie_url = 'https://assets2.lottiefiles.com/packages/lf20_t9hwygsm.json'
     lottie_json = load_lottieurl(lottie_url)
     st_lottie(lottie_json)
@@ -293,7 +298,8 @@ div.stButton > button:first-child {
                 st.session_state['song_start'] += songs_number     
 
         songs_contem = songs[st.session_state['song_start']: st.session_state['song_start'] + songs_number]
-        audios_contem = audios[st_session_state['song_start']: st.session_state['song_start'] + songs_number]     
+        audios_contem = audios[st.session_state['song_start']: st.session_state['song_start'] + songs_number]     
+
         if st.session_state['song_start'] < len(songs):
             for i, (track, audio) in enumerate(zip(songs_contem, audios_contem)):
                 if i%2==0:
@@ -333,6 +339,7 @@ div.stButton > button:first-child {
             with col1:
                 st.write("No songs left to recommend")
 page()
+
 
 
 
