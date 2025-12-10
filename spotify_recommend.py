@@ -68,28 +68,7 @@ def main():
     st.set_page_config(page_title="Spotify Recommender", page_icon="🎧", layout="wide")
     st.title("🎧 Spotify Audio Feature Recommendation System")
 
-    # Load CSV
-    try:
-        df = pd.read_csv(uploaded_file)
-    except Exception as e:
-        st.error(f"Error reading CSV: {e}")
-        return
-
-    # Validate columns
-    missing = [c for c in FEATURE_COLS if c not in df.columns]
-    if missing:
-        st.error(
-            f"Your file is missing these required columns: {missing}\n\n"
-            "Make sure you uploaded the correct spotify_songs.csv."
-        )
-        st.write("Columns found in your file:", list(df.columns))
-        return
-
-    if LABEL_COL not in df.columns:
-        st.warning(
-            f"Column '{LABEL_COL}' not found. Recommendations will still work, "
-            "but you won't be able to filter by liked."
-        )
+    
 
     # Drop rows with missing feature values
     df = df.dropna(subset=FEATURE_COLS)
@@ -352,6 +331,7 @@ div.stButton > button:first-child {
             with col1:
                 st.write("No songs left to recommend")
 page()
+
 
 
 
