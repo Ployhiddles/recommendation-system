@@ -71,7 +71,7 @@ def main():
     
 
     # Drop rows with missing feature values
-    df = df.dropna(subset=FEATURE_COLS)
+    df = df.dropna(subset=[col for col in FEATURE_COLS if col in df.columns])
 
     if df.empty:
         st.error("All rows are missing required features after cleaning.")
@@ -331,6 +331,7 @@ div.stButton > button:first-child {
             with col1:
                 st.write("No songs left to recommend")
 page()
+
 
 
 
