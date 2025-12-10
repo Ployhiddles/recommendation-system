@@ -68,20 +68,6 @@ def main():
     st.set_page_config(page_title="Spotify Recommender", page_icon="🎧", layout="wide")
     st.title("🎧 Spotify Audio Feature Recommendation System")
 
-    st.write(
-        "Upload your **spotify_songs.csv** file, choose your preferences, "
-        "and get similar song recommendations from your dataset."
-    )
-
-    # ---- File upload ----
-    uploaded_file = st.file_uploader(
-        "Upload your spotify_songs.csv", type=["csv"]
-    )
-
-    if uploaded_file is None:
-        st.info("👆 Upload your CSV to begin.")
-        return
-
     # Load CSV
     try:
         df = pd.read_csv(uploaded_file)
@@ -366,5 +352,6 @@ div.stButton > button:first-child {
             with col1:
                 st.write("No songs left to recommend")
 page()
+
 
 
