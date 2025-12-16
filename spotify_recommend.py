@@ -93,6 +93,19 @@ def extract_track_id(url_or_uri: str) -> str:
     return url_or_uri
 
 # ----------------- MAIN PAGE -----------------
+
+def extract_track_id_from_embed(embed_html: str) -> str:
+    """Extract a Spotify track ID from an embed iframe/html snippet."""
+    s = (embed_html or "").strip()
+    if "track/" in s:
+        part = s.split("track/")[1]
+        # stop at common delimiters that follow the id in HTML
+        for sep in ['"', "?", "'", " ", "\n", "\t", "&"]:
+            if sep in part:
+                part = part.split(sep)[0]
+        return part.strip()
+    return ""
+
 def main():
     st.title("Spotify Song Recommendation System")
     st.write(
@@ -224,7 +237,8 @@ def main():
                                         color_discrete_sequence=px.colors.sequential.Blackbody,
                                     )
                                     polar_chart.update_layout(height=260, width=380)
-                                    st.plotly_chart(polar_chart, key=f"polar_right_{start_idx}_{i}")
+                                    track_id_embed = extract_track_id_from_embed(track_html) or f"{start_idx}_{i}"
+                                    st.plotly_chart(polar_chart, key=f"polar_right_{track_id_embed}_{start_idx}_{i}")
                         else:
                             with col1:
                                 components.html(track_html, height=400)
@@ -248,7 +262,8 @@ def main():
                                         color_discrete_sequence=px.colors.sequential.Blackbody,
                                     )
                                     polar_chart.update_layout(height=260, width=380)
-                                    st.plotly_chart(polar_chart, key=f"polar_left_{start_idx}_{i}")
+                                    track_id_embed = extract_track_id_from_embed(track_html) or f"{start_idx}_{i}"
+                                    st.plotly_chart(polar_chart, key=f"polar_left_{track_id_embed}_{start_idx}_{i}")
                 else:
                     with col1:
                         st.write("No songs left to recommend.")
@@ -326,12 +341,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
 
 
 
