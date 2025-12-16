@@ -29,4 +29,11 @@ Pick a track/artist (or search from Spotify) and the app suggests **similar song
 - Pandas / NumPy
 - scikit-learn (similarity / nearest neighbors)
 - Spotify Web API (via `spotipy` or direct requests)
+---
+![11](https://github.com/user-attachments/assets/bff8ff77-556f-4970-b4fc-4d008e2b1d51)
+![12](https://github.com/user-attachments/assets/e8e52726-a85d-4e71-a385-88b08173b81f)
+![13](https://github.com/user-attachments/assets/d8bcc4e6-b830-4830-bb8b-79d3f8727188)
+
+
+
 
