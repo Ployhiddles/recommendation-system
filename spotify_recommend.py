@@ -224,7 +224,7 @@ def main():
                                         color_discrete_sequence=px.colors.sequential.Blackbody,
                                     )
                                     polar_chart.update_layout(height=260, width=380)
-                                    st.plotly_chart(polar_chart)
+                                    st.plotly_chart(polar_chart, key=f"polar_right_{start_idx}_{i}")
                         else:
                             with col1:
                                 components.html(track_html, height=400)
@@ -248,7 +248,7 @@ def main():
                                         color_discrete_sequence=px.colors.sequential.Blackbody,
                                     )
                                     polar_chart.update_layout(height=260, width=380)
-                                    st.plotly_chart(polar_chart)
+                                    st.plotly_chart(polar_chart, key=f"polar_left_{start_idx}_{i}")
                 else:
                     with col1:
                         st.write("No songs left to recommend.")
@@ -312,7 +312,7 @@ def main():
             )
             fig.update_layout(height=400, width=500)
             st.subheader("Polar Chart")
-            st.plotly_chart(fig)
+            st.plotly_chart(fig, key="polar_tab2_chart")
 
             # Optional Spotify embed
             st.subheader("Spotify Preview")
@@ -326,6 +326,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
 
 
 
