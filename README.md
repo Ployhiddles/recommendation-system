@@ -30,9 +30,3 @@ Pick a track/artist (or search from Spotify) and the app suggests **similar song
 - scikit-learn (similarity / nearest neighbors)
 - Spotify Web API (via `spotipy` or direct requests)
 
----
-
-### 1) Clone the repo
-```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
