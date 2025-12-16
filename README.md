@@ -32,8 +32,6 @@ Pick a track/artist (or search from Spotify) and the app suggests **similar song
 
 ---
 
-## Getting Started (Local)
-
 ### 1) Clone the repo
 ```bash
 git clone https://github.com/<your-username>/<your-repo>.git
