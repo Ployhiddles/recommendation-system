@@ -111,7 +111,7 @@ def main():
     st.write(
         "This project recommends songs based on genre and audio characteristics "
         "(acousticness, danceability, energy, instrumentalness, valence, tempo) "
-        "and can also generate polar charts for specific tracks from your CSV."
+        "and you can also see the data visualisation by polar chart."
     )
 
     # Lottie animation
@@ -341,6 +341,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
