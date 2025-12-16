@@ -113,8 +113,8 @@ def main():
         "The system is designed to recommend songs based on their audio characteristics rather than user listening history."
         "It uses a curated dataset sourced from Kaggle, which contains Spotify track metadata and audio features for songs released between 2000 and 2019."
         
-        "The recommendation approach is content-based, meaning songs are suggested by comparing musical attributes such as danceability, energy, tempo, valence, and loudness. 
-        When a user selects a song, the system analyzes its audio feature profile and identifies other tracks with similar characteristics using similarity measures."
+        "The recommendation approach is content-based, meaning songs are suggested by comparing musical attributes such as danceability, energy, tempo, valence, and loudness." 
+        "When a user selects a song, the system analyzes its audio feature profile and identifies other tracks with similar characteristics using similarity measures."
         
     )
 
@@ -345,6 +345,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
