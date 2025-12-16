@@ -16,7 +16,7 @@ Pick a track/artist (or search from Spotify) and the app suggests **similar song
 ---
 
 ## How it works (high level)
-1. Fetch track metadata + audio features from Spotify
+1. Collect song metadata and audio features from Spotify. The dataset used in this project was obtained from Kaggle and contains songs released between 2000 and 2019.
 2. Build a feature vector for the selected track (and/or dataset)
 3. Compute similarity (e.g., cosine similarity / nearest neighbors)
 4. Return the top-N most similar tracks as recommendations
