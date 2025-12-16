@@ -109,9 +109,13 @@ def extract_track_id_from_embed(embed_html: str) -> str:
 def main():
     st.title("Spotify Song Recommendation System")
     st.write(
-        "This project recommends songs based on genre and audio characteristics "
-        "(acousticness, danceability, energy, instrumentalness, valence, tempo) "
-        "and you can also see the data visualisation by polar chart."
+        "This project is a Spotify music recommendation system developed using Python and Streamlit. 
+        The system is designed to recommend songs based on their audio characteristics rather than user listening history.
+        It uses a curated dataset sourced from Kaggle, which contains Spotify track metadata and audio features for songs released between 2000 and 2019.
+        
+        The recommendation approach is content-based, meaning songs are suggested by comparing musical attributes such as danceability, energy, tempo, valence, and loudness. 
+        When a user selects a song, the system analyzes its audio feature profile and identifies other tracks with similar characteristics using similarity measures."
+        
     )
 
     # Lottie animation
@@ -341,6 +345,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
